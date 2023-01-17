@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Update Shotgrid",
+    "regex": ".fbx",
+    "steps": ["Update Shotgrid", "Update Slack"],
+    "parent": "import model"
+  },
+  {
+    "name": "UpdateDB",
+    "steps": ["Update DB", "Update Slack"],
+    "parent": "import_psd"
+  }
+]

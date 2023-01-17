@@ -1,0 +1,50 @@
+[
+  {
+    "name": "TestMinimumConfig",
+    "steps": ["Test Build Step"]
+  },
+  {
+    "name": "TestEditAssetConfig",
+    "steps": ["Report Asset Status", "Test Build Step", "Report Asset Status"]
+  },
+  {
+    "name": "TestContainsStepWHichDoesNotExist",
+    "steps": ["Test Build Step", "Foo Step", "A base parent"]
+  },
+    {
+    "name": "TestContainsParent",
+    "steps": ["secondary leve","Test Build Step", "Foo Step", "Bar Step"],
+      "parent": "TestContainsStepWHichDoesNotExist"
+  },
+  {
+    "name": "TestContainsNestedParent",
+    "steps": ["tertiary level","Test Build Step", "Foo Step", "Zap Step"],
+    "parent": "TestContainsParent"
+  },
+    {
+    "name": "TestContainsNestedParentToMissingParent",
+    "steps": ["Test Build Step", "Foo Step", "Zap Step"],
+    "parent": "MissingParent"
+  },
+  {
+    "name": "TestContainsRegex",
+    "regex": "[\\w]*[\\d]*.psd",
+    "steps": ["Test Build Step", "child step", "Foo Step", "Zap Step", "Foxtrot Step"],
+    "parent": "TestContainsNestedParent"
+  },
+    {
+    "name": "TestMissingSteps",
+    "regex": "*.psd",
+    "parent": "TestContainsParent"
+  },
+    {
+    "regex": "*.psd",
+    "steps": ["Test Build Step", "Foo Step", "Zap Step", "Foxtrot Step"],
+    "parent": "TestContainsParent"
+  },
+    {
+    "name": "Test FBX Config",
+    "regex": "[\\w]*[\\d]*.fbx",
+    "steps": ["Test Build Step", "Test FBX Step",  "Report Asset Status"]
+  }
+]

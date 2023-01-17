@@ -1,0 +1,17 @@
+[
+  {
+    "name": "import model",
+    "regex": "",
+    "steps": ["Nested Test Build Step Tertiary", "Nested Test Build Step Tertiary", "Nested Test Build Step Tertiary",
+    "This step does not exist"]
+  },
+  {
+    "name": "import texture",
+    "steps": ["This step does not exist"]
+  },
+ {
+    "name": "import_psd",
+    "regex": "",
+    "steps": ["Nested Test Build Step Secondary", "This step does not exist"]
+  }
+]
