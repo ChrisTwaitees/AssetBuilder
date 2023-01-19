@@ -8,7 +8,7 @@ TEST_RESOURCES_DIR = os.path.join(os.path.dirname(__file__), "resources")
 
 class DirectorUnitTests(unittest.TestCase):
     @classmethod
-    def setUpClass(cls) -> None:
+    def setUpClass(cls):
         cls.director = director.Director()
         cls.test_psd_filepath = r"C:\Users\ChrisThwaites\Desktop\CharacterBuilder\test_assets\ThisisIsATestFile.psd"
         cls.director.add_config_scan_directory(TEST_RESOURCES_DIR)

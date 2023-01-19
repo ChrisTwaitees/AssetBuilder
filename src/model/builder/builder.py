@@ -1,35 +1,30 @@
-from dataclasses import dataclass
-
 from log import LOG
 
 from model.asset import asset
 
-from model.build_step import build_step
 from model.build_step import build_step_plugin_factory
 
-from model.builder import builder_config
 
-
-@dataclass
-class BuilderTweakable:
-    build_step_ref: build_step.BuildStep
-    build_step_tweakables: dict
+class BuilderTweakable(object):
+    def __init__(self, build_step_ref, build_step_tweakables):
+        self.build_step_ref = build_step_ref
+        self.build_step_tweakables = build_step_tweakables
 
 
 class Builder(object):
     def __init__(self, config=None):
         self._asset = asset.Asset()
-        self._build_steps: [build_step.BuildStep] = []
-        self._tweakables: [BuilderTweakable] = []
-        self._current_config: builder_config.BuildConfig = config
-        self._compatible_configs: [builder_config.BuildConfig] = []
+        self._build_steps = []
+        self._tweakables = []
+        self._current_config = config
+        self._compatible_configs = []
 
     @property
     def config(self):
         return self._current_config
 
     @config.setter
-    def config(self, value: builder_config.BuildConfig):
+    def config(self, value):
         self._current_config = value
         self.load_config(self._current_config)
 
@@ -38,7 +33,7 @@ class Builder(object):
         return self._compatible_configs
 
     @compatible_configs.setter
-    def compatible_configs(self, value: [builder_config.BuildConfig]):
+    def compatible_configs(self, value):
         self._compatible_configs = value
 
     @property
@@ -58,7 +53,7 @@ class Builder(object):
         return self._build_steps
 
     @property
-    def tweakables(self) -> [BuilderTweakable]:
+    def tweakables(self):
         return self._tweakables
 
     def build(self):
@@ -68,7 +63,7 @@ class Builder(object):
             build_result = step.build(self._asset)
             build_results.append(build_result)
 
-    def load_config(self, build_config: builder_config.BuildConfig):
+    def load_config(self, build_config):
         self._build_steps = []
         for step in build_config.steps:
             # Get a reference to the build step's class
@@ -77,8 +72,8 @@ class Builder(object):
                 # Add an instance of the step
                 self._build_steps.append(step_cls(self._asset))
             else:
-                LOG.warning(f"Could not find Build Step : {step}, has it been implemented "
-                            f"and within a scan directory?")
+                LOG.warning("Could not find Build Step : {}, has it been implemented "
+                            "and within a scan directory?".format(step))
         # Load tweakables
         self._initialize_tweakables()
 

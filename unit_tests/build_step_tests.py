@@ -14,7 +14,7 @@ TEST_BUILD_STEPS_DIR = os.path.join(os.path.dirname(__file__), "resources")
 class BuildStepsTests(unittest.TestCase):
 
     @classmethod
-    def setUpClass(cls) -> None:
+    def setUpClass(cls):
         cls.build_step_factory = build_step_plugin_factory.BuildStepPluginFactory()
 
     def test_build_step_factory_add_directory(self):

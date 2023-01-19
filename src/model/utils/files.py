@@ -12,6 +12,6 @@ def get_filepaths_with_extension(directory, extension):
             for dirpath, dirnames, filenames in os.walk(scan_dir):
                 [paths.append(os.path.join(dirpath, file)) for file in filenames if file.endswith(extension)]
         else:
-            LOG.warn(f"{scan_dir} is not on disk.")
+            LOG.warn("{} is not on disk.".format(scan_dir))
 
     return paths

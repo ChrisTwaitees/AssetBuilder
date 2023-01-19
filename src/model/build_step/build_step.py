@@ -4,31 +4,33 @@ Abstract build step class.
 Used by model.builder.Builder to execute list of ordered build
 steps. Must implement "build" method.
 """
-from dataclasses import dataclass
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
 
-from model.asset import asset
 from model.tweakables import tweakables
 
 
-@dataclass
 class BuildStepResult:
     """ Data class storing results of a build a run"""
-    message: str
-    success: bool
+    def __init__(self, message="", success=False):
+        self.message = message
+        self.success = success
 
 
-@dataclass
 class BuildStepTweakable(tweakables.TweakableBase):
-    pass
+    def __init__(self, name="", value=None):
+        super(BuildStepTweakable, self).__init__(name=name,
+                                                 value=value)
 
 
-@dataclass
 class BuildStepListTweakable(tweakables.TweakableListBase):
-    pass
+    def __init__(self, name="", value=None, values=()):
+        super(BuildStepListTweakable, self).__init__(name=name,
+                                                     value=value,
+                                                     values=values)
 
 
-class BuildStep(ABC):
+class BuildStep:
+    __metaclass__ = ABCMeta
     """
     Abstract build step.
 
@@ -38,14 +40,14 @@ class BuildStep(ABC):
     __step_name__ = ""
     __description__ = ""
 
-    def __init__(self, asset_ref: asset.Asset):
+    def __init__(self, asset_ref):
         self.asset = asset_ref
 
     @abstractmethod
-    def build(self, asset: asset.Asset) -> BuildStepResult:
+    def build(self, asset):
         raise NotImplementedError("build needs to return a BuildResult")
 
     @property
-    def tweakables(self) -> {str: tweakables.TweakableBase}:
+    def tweakables(self):
         return {attr: value for attr, value in self.__dict__.items()
                 if isinstance(value, tweakables.TweakableBase) or isinstance(value, tweakables.TweakableListBase)}

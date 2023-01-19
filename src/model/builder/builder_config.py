@@ -1,6 +1,5 @@
 import os
 import json
-from dataclasses import dataclass
 
 from log import LOG
 from model.utils import files
@@ -8,22 +7,22 @@ from model.utils import files
 CONFIGS_DIR = os.path.join(os.path.dirname(__file__), "configs")
 
 
-@dataclass
 class BuildConfig:
-    name: str = ""
-    steps: [str] = ""
-    # Optional
-    regex: str = ""
-    parent: str = ""
+    def __init__(self):
+        self.name = ""
+        self.steps = ""
+        # Optional
+        self.regex = ""
+        self.parent = ""
 
 
 class BuilderConfigLoader(object):
     __scan_directories__ = [CONFIGS_DIR]
-    __configs__: [BuildConfig] = []
+    __configs__ = []
 
     # PROPERTIES
     @classmethod
-    def get_configs(cls) -> [BuildConfig]:
+    def get_configs(cls):
         if not cls.__configs__:
             cls.reload__configs__()
         return cls.__configs__
@@ -34,7 +33,7 @@ class BuilderConfigLoader(object):
 
     # DIRECTORIES
     @classmethod
-    def add_scan_directory(cls, scan_directory: str) -> None:
+    def add_scan_directory(cls, scan_directory):
         cls.__scan_directories__.append(scan_directory)
         cls._scan_directories = list(set(cls.__scan_directories__))
         cls.reload__configs__()
@@ -65,7 +64,7 @@ class BuilderConfigLoader(object):
                             setattr(new_config, attr, val)
                     cls.__configs__.append(new_config)
                 else:
-                    LOG.warning(f"Config data : {config_data} is missing required keys : 'name' and 'steps'.")
+                    LOG.warning("Config data : {} is missing required keys : 'name' and 'steps'.".format(config_data))
 
         # Resolve parents
         for config in cls.get_configs():

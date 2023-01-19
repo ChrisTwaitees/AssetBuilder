@@ -1,16 +1,16 @@
 import os
-from importlib.machinery import SourceFileLoader
+import imp
 
 from model.utils import files
 
 from model.build_step import build_step
 from log import LOG
 
-BUILD_STEPS_DIR = os.path.join(os.path.dirname(__file__), "steps")
+BUILD_STEPS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "build_steps")
 
 
 class BuildStepPluginFactory(object):
-    __plugins__: [build_step.BuildStep] = []
+    __plugins__ = []
     __scan_directories__ = [BUILD_STEPS_DIR]
 
     @classmethod
@@ -31,7 +31,7 @@ class BuildStepPluginFactory(object):
 
     # PLUGINS
     @classmethod
-    def add_scan_directory(cls, scan_directory: str) -> None:
+    def add_scan_directory(cls, scan_directory):
         cls.__scan_directories__.append(scan_directory)
         cls.__scan_directories__ = list(set(cls.__scan_directories__))
         cls.reload_plugins()
@@ -42,8 +42,8 @@ class BuildStepPluginFactory(object):
         files_to_scan = files.get_filepaths_with_extension(cls.__scan_directories__, ".py")
         # Import all modules
         for file in files_to_scan:
-            module_name = os.path.basename(file).removesuffix(".py")
-            SourceFileLoader(module_name, file).load_module()
+            module_name = os.path.basename(file).replace(".py", "")
+            imp.load_source(module_name, file)
 
         # Return all subclasses loaded
         cls.__plugins__ = [bld_step for bld_step in build_step.BuildStep.__subclasses__()]

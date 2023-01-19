@@ -6,7 +6,7 @@ class TestBuildStep(build_step.BuildStep):
     __step_name__ = "Test Build Step"
     __description__ = "This is a test Build Step"
 
-    def __init__(self, asset_ref: asset.Asset):
+    def __init__(self, asset_ref):
         """
         Here we initialize the data we'll need during the build step.
         BuildStepsTweakables will be editable by the user if desired.
@@ -14,7 +14,7 @@ class TestBuildStep(build_step.BuildStep):
         The getter will be resolved by the Builder.
         """
         # Set asset
-        super().__init__(asset_ref)
+        super(TestBuildStep, self).__init__(asset_ref)
 
         # Build Step Tweakables
         brands_temp = ["gucci", "prada", "dior"]
@@ -36,13 +36,13 @@ class TestBuildStep(build_step.BuildStep):
     def default_texture_path_getter(self):
         return self.asset.raw_path + ".psd"
 
-    def build(self, asset: asset.Asset):
-        print(f"Tags : {self.tags.values}")
-        print(f"MarketPlace Sale Price : {self.marketplace_price.value}")
-        print(f"Default Texture Path : {self.default_tx_path.value}")
-        print(f"Brand : {self.brands.value}")
+    def build(self, asset):
+        print("Tags : {}".format(self.tags.values))
+        print("MarketPlace Sale Price : {}".format(self.marketplace_price.value))
+        print("Default Texture Path : {}".format(self.default_tx_path.value))
+        print("Brand : {}".format(self.brands.value))
         print("updating asset...")
-        asset.source_path = f"Edited by {self.__step_name__}"
+        asset.source_path = "Edited by {}".format(self.__step_name__)
 
         return build_step.BuildStepResult(message="Test Build Step Message",
                                           success=False)
@@ -52,7 +52,7 @@ class ReportAssetStatusStep(build_step.BuildStep):
     __step_name__ = "Report Asset Status"
     __description__ = "This step reports the asset status during a build run"
 
-    def __init__(self, asset_ref: asset.Asset):
+    def __init__(self, asset_ref):
         """
         Here we initialize the data we'll need during the build step.
         BuildStepsTweakables will be editable by the user if desired.
@@ -60,10 +60,10 @@ class ReportAssetStatusStep(build_step.BuildStep):
         The getter will be resolved by the Builder.
         """
         # Set asset
-        super().__init__(asset_ref)
+        super(ReportAssetStatusStep, self).__init__(asset_ref=asset_ref)
 
-    def build(self, asset: asset.Asset):
-        print(f"Arg asset :{asset}\n Local asset : {self.asset}")
+    def build(self, asset):
+        print("Arg asset :{}\n Local asset : {}".format(asset, self.asset))
 
         return build_step.BuildStepResult(message="Test Build Step Message",
                                           success=False)
@@ -73,7 +73,7 @@ class TestFBXStep(build_step.BuildStep):
     __step_name__ = "Test FBX Step"
     __description__ = "This step aims to only be ran on FBX files"
 
-    def __init__(self, asset_ref: asset.Asset):
+    def __init__(self, asset_ref):
         """
         Here we initialize the data we'll need during the build step.
         BuildStepsTweakables will be editable by the user if desired.
@@ -81,7 +81,7 @@ class TestFBXStep(build_step.BuildStep):
         The getter will be resolved by the Builder.
         """
         # Set asset
-        super().__init__(asset_ref)
+        super(TestFBXStep, self).__init__(asset_ref)
 
         # Asset Settings
         self.slot = asset.AssetTweakable(name="Slot",
@@ -89,8 +89,8 @@ class TestFBXStep(build_step.BuildStep):
         self.re_import = asset.AssetTweakable(name="Force Re-import",
                                               value=False)
 
-    def build(self, asset: asset.Asset):
-        print(f"Slot {self.slot}, reimport {self.re_import} ")
+    def build(self, asset):
+        print("Slot {}, reimport {}".format(self.slot, self.re_import))
 
         return build_step.BuildStepResult(message="Test Build Step Message",
                                           success=False)

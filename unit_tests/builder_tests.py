@@ -12,7 +12,7 @@ TEST_RESOURCES_DIR = os.path.join(os.path.dirname(__file__), "resources")
 class BuilderTests(unittest.TestCase):
 
     @classmethod
-    def setUpClass(cls) -> None:
+    def setUpClass(cls):
         BuildStepPluginFactory.add_scan_directory(TEST_RESOURCES_DIR)
 
         builder_config_loader = builder_config.BuilderConfigLoader()
@@ -62,7 +62,7 @@ class BuilderTests(unittest.TestCase):
 
 class BuilderConfigTests(unittest.TestCase):
     @classmethod
-    def setUpClass(cls) -> None:
+    def setUpClass(cls):
         cls.builder = builder.Builder()
         builder_config.BuilderConfigLoader.add_scan_directory(TEST_RESOURCES_DIR)
 

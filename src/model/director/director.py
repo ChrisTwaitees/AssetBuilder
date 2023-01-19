@@ -29,7 +29,7 @@ class Director(object):
         BuildStepPluginFactory.add_scan_directory(directory)
 
     @staticmethod
-    def get_builder_config_from_filepath(filepath: str):
+    def get_builder_config_from_filepath(filepath):
         filename = os.path.basename(filepath)
         for config in BuilderConfigLoader.get_configs():
             if config.regex:
@@ -37,7 +37,7 @@ class Director(object):
                     return config
 
     @classmethod
-    def get_builder_from_filepath(cls, filepath: str):
+    def get_builder_from_filepath(cls, filepath):
         config = cls.get_builder_config_from_filepath(filepath)
         if config:
             new_builder = builder.Builder()

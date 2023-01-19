@@ -1,21 +1,22 @@
-from dataclasses import dataclass
-
 from model.tweakables import tweakables
 
 
-@dataclass
-class Asset:
-    name: str = ""
-    raw_path: str = ""
-    depot_path: str = ""
-    source_path: str = ""
+class Asset(object):
+    def __init__(self):
+        self.name = ""
+        self.raw_path = ""
+        self.depot_path = ""
+        self.source_path = ""
 
 
-@dataclass
 class AssetTweakable(tweakables.TweakableBase):
-    pass
+    def __init__(self, name="", value=None):
+        super(AssetTweakable, self).__init__(name=name,
+                                             value=value)
 
 
-@dataclass
 class AssetListTweakable(tweakables.TweakableListBase):
-    pass
+    def __init__(self, name="", value=None, values=()):
+        super(AssetListTweakable, self).__init__(name=name,
+                                                 value=value,
+                                                 values=values)
