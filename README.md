@@ -1,5 +1,5 @@
 # AssetBuilder
-[![TechStack](https://skillicons.dev/icons?i=python)](https://skillicons.dev)
+[![TechStack](https://skillicons.dev/icons?i=python,qt)](https://skillicons.dev)
 
 An implementation of the "Builder" pattern.
 
