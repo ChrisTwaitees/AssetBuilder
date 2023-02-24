@@ -26,7 +26,7 @@ class BuildStepPluginFactory(object):
     @classmethod
     def get_build_step_by_name(cls, name):
         for plugin in cls.get_build_steps():
-            if plugin.__step_name__ == name:
+            if plugin.__step_name__.lower() == name.lower():
                 return plugin
 
     # PLUGINS
