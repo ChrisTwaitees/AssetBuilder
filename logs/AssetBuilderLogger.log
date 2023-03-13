@@ -1,0 +1,2 @@
+ WARNING - Config data : {'name': 'TestMissingSteps', 'regex': '*.psd', 'parent': 'TestContainsParent'} is missing required keys : 'name' and 'steps'.
+ WARNING - Config data : {'regex': '*.psd', 'steps': ['Test Build Step', 'Foo Step', 'Zap Step', 'Foxtrot Step'], 'parent': 'TestContainsParent'} is missing required keys : 'name' and 'steps'.
