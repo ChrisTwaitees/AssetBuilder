@@ -21,6 +21,18 @@ from model.build_step.build_step_plugin_factory import BuildStepPluginFactory
 
 class Director(object):
     @staticmethod
+    def get_all_configs():
+        # get all configs
+        return BuilderConfigLoader.get_configs()
+
+
+    @staticmethod
+    def get_builder_from_config(config):
+        new_builder = builder.Builder()
+        new_builder.load_config(config)
+        return new_builder
+
+    @staticmethod
     def add_config_scan_directory(directory):
         BuilderConfigLoader.add_scan_directory(directory)
 
@@ -40,7 +52,6 @@ class Director(object):
     def get_builder_from_filepath(cls, filepath: str):
         config = cls.get_builder_config_from_filepath(filepath)
         if config:
-            new_builder = builder.Builder()
+            new_builder = cls.get_builder_from_config(config)
             new_builder.asset.raw_path = filepath
-            new_builder.load_config(config)
             return new_builder

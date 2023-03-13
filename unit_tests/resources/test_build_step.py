@@ -10,8 +10,7 @@ class TestBuildStep(build_step.BuildStep):
         """
         Here we initialize the data we'll need during the build step.
         BuildStepsTweakables will be editable by the user if desired.
-        If data from the Asset is required, an AssetTweakable can be used with a getter.
-        The getter will be resolved by the Builder.
+        If data from the Asset is required, an AssetTweakable can be used.
         """
         # Set asset
         super().__init__(asset_ref)

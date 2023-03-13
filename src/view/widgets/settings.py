@@ -24,9 +24,6 @@ class TweakableWidget(QtWidgets.QWidget):
         self._tweakable.value = self._value_line_edit.text()
 
 
-
-
-
 class SettingsWidget(QtWidgets.QWidget):
 
     def __init__(self):
@@ -61,12 +58,9 @@ class SettingsWidget(QtWidgets.QWidget):
                 self._asset_settings_list.addItem(new_item)
                 self._asset_settings_list.setItemWidget(new_item, item_widget)
 
-
     def set_builder(self, builder: builder.Builder):
         self._current_builder = builder
         steps_names = [step.__step_name__ for step in builder.build_steps]
         self._info_label.setText(f"Asset : {builder.asset.raw_path},\nSteps : {steps_names}")
 
         self._populate_asset_settings()
-
-

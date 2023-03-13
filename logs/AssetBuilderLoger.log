@@ -1,10 +1,2 @@
  WARNING - Config data : {'name': 'TestMissingSteps', 'regex': '*.psd', 'parent': 'TestContainsParent'} is missing required keys : 'name' and 'steps'.
  WARNING - Config data : {'regex': '*.psd', 'steps': ['Test Build Step', 'Foo Step', 'Zap Step', 'Foxtrot Step'], 'parent': 'TestContainsParent'} is missing required keys : 'name' and 'steps'.
- WARNING - Could not find Build Step : Foo Step, has it been implemented and within a scan directory?
- WARNING - Could not find Build Step : A base parent, has it been implemented and within a scan directory?
- WARNING - Could not find Build Step : secondary leve, has it been implemented and within a scan directory?
- WARNING - Could not find Build Step : Bar Step, has it been implemented and within a scan directory?
- WARNING - Could not find Build Step : tertiary level, has it been implemented and within a scan directory?
- WARNING - Could not find Build Step : Zap Step, has it been implemented and within a scan directory?
- WARNING - Could not find Build Step : child step, has it been implemented and within a scan directory?
- WARNING - Could not find Build Step : Foxtrot Step, has it been implemented and within a scan directory?

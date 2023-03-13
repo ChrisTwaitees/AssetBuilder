@@ -1,5 +1,7 @@
 from model.builder import builder
 
+from log import LOG
+
 from view.widgets import filebrowser
 from view.widgets import builders_list
 from view.widgets import settings
@@ -41,12 +43,11 @@ class ImportTab(QtWidgets.QWidget):
 
     def _connect_signals(self):
         self.file_browser.file_selected_signal.connect(self.get_builders_from_directory_signal)
-        self.set_builders_signal.connect(self._set_builders)
         self._builders_list.builder_selected_signal.connect(self._settings.set_builder)
 
     def _import_bttn_clicked(self):
-        print("Import Bttn Clicked")
+        LOG.info("Import button clicked")
         self.import_triggered_signal.emit()
 
-    def _set_builders(self, builders):
+    def set_builders(self, builders):
         self._builders_list.set_builders(builders)

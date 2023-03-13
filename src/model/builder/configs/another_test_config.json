@@ -1,5 +1,10 @@
 [
   {
+    "name": "image edge detection",
+    "regex": "(\\w|\\W|\\d|\\D)*.(png|jpg)",
+    "steps": ["Image Analysis"]
+  },
+  {
     "name": "import model",
     "regex": "",
     "steps": ["Nested Test Build Step Tertiary", "Nested Test Build Step Tertiary", "Nested Test Build Step Tertiary",

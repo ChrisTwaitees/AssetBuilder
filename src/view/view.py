@@ -7,19 +7,18 @@ import sys
 from PySide2 import QtWidgets
 from PySide2.QtCore import Signal
 
+from log import LOG
+
 from view.tabs import import_tab
 from view.tabs import config_tab
 from view.tabs import batch_tab
+from view.widgets import log as log_widget
 
 
 QT_APP = QtWidgets.QApplication(sys.argv)
 
 
 class CharacterBuilderView(QtWidgets.QMainWindow):
-    import_triggered_signal = Signal()
-    set_builders_signal = Signal(list)
-    get_builders_from_directory_signal = Signal(str)
-
     def __init__(self, parent=None):
         super(CharacterBuilderView, self).__init__(parent)
         self.setWindowTitle("Asset Builder")
@@ -33,7 +32,7 @@ class CharacterBuilderView(QtWidgets.QMainWindow):
         self.main_widget = QtWidgets.QWidget()
         self.setCentralWidget(self.main_widget)
         self._create_widgets()
-        self._connect_signals()
+
 
     def _create_widgets(self):
         self._layout = QtWidgets.QVBoxLayout()
@@ -50,10 +49,10 @@ class CharacterBuilderView(QtWidgets.QMainWindow):
 
         self._layout.addWidget(self.tabs)
 
-    def _connect_signals(self):
-        self.import_tab.import_triggered_signal.connect(self.import_triggered_signal)
-        self.set_builders_signal.connect(self.import_tab.set_builders_signal)
-        self.import_tab.get_builders_from_directory_signal.connect(self.get_builders_from_directory_signal)
+        # Log widget
+        lg = log_widget.LogWidget()
+        lg.attach_logger(LOG)
+        self._layout.addWidget(lg)
 
     def launch_ui(self):
         # Create and show the form

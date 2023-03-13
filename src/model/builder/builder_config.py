@@ -16,6 +16,10 @@ class BuildConfig:
     regex: str = ""
     parent: str = ""
 
+    @property
+    def json(self):
+        return self.__dict__
+
 
 class BuilderConfigLoader(object):
     __scan_directories__ = [CONFIGS_DIR]
